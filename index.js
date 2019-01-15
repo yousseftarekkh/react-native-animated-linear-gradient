@@ -15,7 +15,7 @@ import rgb2hex from "rgb2hex";
 
 class LinearGradient extends Component {
   render() {
-    const { color0, color1, children, points, style } = this.props;
+    const { color0, color1, children, points } = this.props;
     const gStart = points.start;
     const gEnd = points.end;
     return (
@@ -24,7 +24,7 @@ class LinearGradient extends Component {
         colors={[color0, color1].map(c => rgb2hex(c).hex)}
         start={gStart}
         end={gEnd}
-        style={[styles.linearGradient, style]}
+        style={[styles.linearGradient]}
       >
         {children}
       </NativeLinearGradient>
@@ -98,7 +98,7 @@ class AnimatedGradient extends Component {
 
   render() {
     const { color0, color1 } = this.state;
-    const { customColors, children, points } = this.props;
+    const { customColors, children, points, style } = this.props;
     const preferColors = [];
     // while (preferColors.length < customColors.length) {
     while (preferColors.length < 2) {
@@ -120,7 +120,7 @@ class AnimatedGradient extends Component {
 
     return (
       <Animated.LinearGradient
-        style={[styles.linearGradient]}
+        style={[styles.linearGradient, style]}
         points={points}
         color0={interpolatedColors[0]}
         color1={interpolatedColors[1]}
@@ -132,16 +132,7 @@ class AnimatedGradient extends Component {
 }
 
 const styles = StyleSheet.create({
-  linearGradient: {
-    position: "absolute",
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "stretch",
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0
-  }
+  linearGradient: { flex: 1, borderRadius: 3, justifyContent: "flex-end" }
 });
 
 export default AnimatedGradient;
